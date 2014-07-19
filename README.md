@@ -14,4 +14,6 @@ I found it quite challenging to interpret the data features in the UCI dataset. 
 * The 'subject_' files contained the subject IDs, since their range was 1 to 30.
 * The 'features.txt' file contained the feature labels.
 
+However, there are a lot of issues with the UCI data:
+
 
