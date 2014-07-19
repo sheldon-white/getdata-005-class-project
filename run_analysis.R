@@ -1,11 +1,28 @@
 #!/usr/bin/Rscript
 
-# Where all datafiles live
+library(plyr)
+
+# Data directory pulled from zipfile
 dataDir = "UCI HAR Dataset"
+
+# Remote URL where the data lives.
 UCIDatasetURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
 #
-# Assemble all data from a UCI experimental phase.
+# Retrieve and unzip the zipfile from configured URL.
+# 
+downloadDataIfMissing <- function(url, uciDataDirectory) {
+    if (!file.exists(uciDataDirectory)) {
+        zipFile = "UCIDataset.zip"
+        message("Retrieving UCI data from '", url, "'")
+        f <- tempfile() 
+        download.file(UCIDatasetURL, f, method="curl") 
+        unzip(f)
+    }
+}
+
+#
+#' Assemble all data from a UCI experimental phase.
 #' Load, prune and assemble the files from one of the test or stage directories in the UCI data directory.
 #' In either subdirectory:
 #' 1) the X_<dirname>.txt file contains all the experimental observations (features), one row per experiment.
@@ -26,19 +43,22 @@ assembleDataFromDirectory <- function(featureNames, phase) {
 	
 	# 'X_' file contains all feature values, one row per experiment
 	featureValuesFile = paste(subdir, "/X_", phase, ".txt", sep="")
-	message("file = ", featureValuesFile)
+	message("Building data frame from '", featureValuesFile, "'")
 	if (!file.exists(subdir)) {
 		stop("Required file ", featureValuesFile, " doesn't exist; aborting...") 
 	}
 	# load all the values
 	featureValues = read.table(featureValuesFile)
 	# set the column names
+	message("Setting column names")
 	colnames(featureValues) = featureNames
 	# Eliminate all columns that don't represent a mean or standard deviation.
 	featureValues = featureValues[,grep("-std(-[A-Z])?$|-mean(-[A-Z])?$", colnames(featureValues), value=TRUE, fixed=FALSE)]
 	
     # Weld on the subject IDs and activities
+	message("Adding subject IDs")
 	subjectFrame = loadSubjectFile(phase)
+	message("Adding activities")
 	activityFrame = loadActivityFile(phase)
 	dataFrame = cbind(subjectFrame, activityFrame, featureValues)
 	dataFrame
@@ -53,7 +73,7 @@ loadSubjectFile <- function(phase) {
 	if (!file.exists(subjectFile)) {
 		stop("Subject file ", subjectFile, " doesn't exist; aborting...") 
 	}
-	message("Loading subject ids from ", subjectFile)
+	message("Loading subject ids from '", subjectFile, "'")
 	subjectFrame = read.table(subjectFile)
 	colnames(subjectFrame) = c("SubjectID")
 	subjectFrame
@@ -68,7 +88,7 @@ loadActivityFile <- function(phase) {
 	if (!file.exists(activityFile)) {
 		stop("Activity file ", activityFile, " doesn't exist; aborting...") 
 	}
-	message("Loading activity ids from ", activityFile)
+	message("Loading activity ids from '", activityFile, "'")
 	activityFrame = read.table(activityFile)
 	colnames(activityFrame) = c("Activity")
 	
@@ -83,7 +103,7 @@ loadFeatureNames <- function() {
 	if (!file.exists(featuresFile)) {
 		stop("Features file ", featuresFile, " doesn't exist; aborting...") 
 	}
-	message("Loading feature names from ", featuresFile)
+	message("Loading feature names from '", featuresFile, "'")
 	featureFrame = read.table(featuresFile)
 	featureNames = featureFrame[,2]
     
@@ -108,14 +128,9 @@ loadFeatureNames <- function() {
 # Main program
 ##########################################################################################
 
-# Retrieve and unzip the zipfile from configured URL
-if (!file.exists(dataDir)){
-	zipFile = "UCIDataset.zip"
-	message("Retrieving ", UCIDatasetURL)
-	f <- tempfile() 
-	download.file(UCIDatasetURL, f, method="curl") 
-	unzip(f)
-}
+
+#pull the remote datafile, if necessary
+downloadDataIfMissing(UCIDatasetURL, dataDir)
 
 # Load feature names
 featureNames = loadFeatureNames()
@@ -136,4 +151,7 @@ fullData$Activity = revalue(fullData$Activity, c("1" = "Walking", "2" = "Walking
 # Create a new frame that contains the average of all numeric columns for each subject/activity pair
 # Then save the aggregated data to disk
 tidy = aggregate(fullData[3:68], by=fullData[c("Activity", "SubjectID")], FUN=mean)
-write.csv(tidy,"tidydata.csv")
+
+tidyDataFile = "tidydata.csv"
+message("Saving tidy data to '", tidyDataFile, "'")
+write.csv(tidy, tidyDataFile)
