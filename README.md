@@ -32,4 +32,4 @@ However, there are a lot of issues with the UCI data:
 * There's no explicit description of the units these numbers represent. All measurements are normalized in a range of [-1, 1] but some more description of the underlying physical measurements would have been nice.
 
 In the end I did some rudimentary cleanups to the feature names, but mostly left them intact.
-Also, there are other features like 'tBodyGyroJerkMean' and the '-meanFreq()' that are described as representing a mean value of some sort, but lacking a clear indication of how they were generated I decided to exclude them.
+Also, there are other features like 'fBodyBodyGyroJerkMag-meanFreq()' that are described as representing a mean value of some sort, but lacking a clear indication of how they were generated I decided to exclude them.
