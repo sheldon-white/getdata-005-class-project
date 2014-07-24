@@ -5,11 +5,13 @@ date: "July 19, 2014"
 output: html_document
 ---
 
+Overview
+--------
 The data described here was prepared as part of the "Getting and Cleaning Data" course. (https://class.coursera.org/getdata-005). It represents a cleaned subset of a large dataset produced by the UCI Center for Machine Learning and Intelligent Systems. A copy of the original dataset can be found here: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 
-Data Transformations
---------------------
+Preparation of the Tidy Data Set
+--------------------------------
 The following steps were performed to create the final dataset:
 
 1. Data was downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
@@ -31,11 +33,9 @@ The following steps were performed to create the final dataset:
 6. Finally, all numeric columns were aggregated to mean values, aggregated on each SubjectId/Activity combunation.
 
 
-Variable Names
+About the Data
 --------------
-
-Overview of Data
-----------------
+Given the large number of features of the data (and the absence of details about the meaning of the individual features), I have include the general comments from the README.txt file included in the zipfile:
 
 > The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
@@ -46,79 +46,4 @@ Overview of Data
 > These signals were used to estimate variables of the feature vector for each pattern:  
 > '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-All numeric measurements are dimensionless, normalized and bounded in the range [-1, +1].
-
-Variables
----------
-
-
-
-
-Activity
-SubjectID
-TimeBodyAcceleration-mean-X
-TimeBodyAcceleration-mean-Y
-TimeBodyAcceleration-mean-Z
-TimeBodyAcceleration-std-X
-TimeBodyAcceleration-std-Y
-TimeBodyAcceleration-std-Z
-TimeGravityAcceleration-mean-X
-TimeGravityAcceleration-mean-Y
-TimeGravityAcceleration-mean-Z
-TimeGravityAcceleration-std-X
-TimeGravityAcceleration-std-Y
-TimeGravityAcceleration-std-Z
-TimeBodyAccelerationJerk-mean-X
-TimeBodyAccelerationJerk-mean-Y
-TimeBodyAccelerationJerk-mean-Z
-TimeBodyAccelerationJerk-std-X
-TimeBodyAccelerationJerk-std-Y
-TimeBodyAccelerationJerk-std-Z
-TimeBodyGyro-mean-X
-TimeBodyGyro-mean-Y
-TimeBodyGyro-mean-Z
-TimeBodyGyro-std-X
-TimeBodyGyro-std-Y
-TimeBodyGyro-std-Z
-TimeBodyGyroJerk-mean-X
-TimeBodyGyroJerk-mean-Y
-TimeBodyGyroJerk-mean-Z
-TimeBodyGyroJerk-std-X
-TimeBodyGyroJerk-std-Y
-TimeBodyGyroJerk-std-Z
-TimeBodyAccelerationMagnitude-mean
-TimeBodyAccelerationMagnitude-std
-TimeGravityAccelerationMagnitude-mean
-TimeGravityAccelerationMagnitude-std
-TimeBodyAccelerationJerkMagnitude-mean
-TimeBodyAccelerationJerkMagnitude-std
-TimeBodyGyroMagnitude-mean
-TimeBodyGyroMagnitude-std
-TimeBodyGyroJerkMagnitude-mean
-TimeBodyGyroJerkMagnitude-std
-FFTBodyAcceleration-mean-X
-FFTBodyAcceleration-mean-Y
-FFTBodyAcceleration-mean-Z
-FFTBodyAcceleration-std-X
-FFTBodyAcceleration-std-Y
-FFTBodyAcceleration-std-Z
-FFTBodyAccelerationJerk-mean-X
-FFTBodyAccelerationJerk-mean-Y
-FFTBodyAccelerationJerk-mean-Z
-FFTBodyAccelerationJerk-std-X
-FFTBodyAccelerationJerk-std-Y
-FFTBodyAccelerationJerk-std-Z
-FFTBodyGyro-mean-X
-FFTBodyGyro-mean-Y
-FFTBodyGyro-mean-Z
-FFTBodyGyro-std-X
-FFTBodyGyro-std-Y
-FFTBodyGyro-std-Z
-FFTBodyAccelerationMagnitude-mean
-FFTBodyAccelerationMagnitude-std
-FFTBodyBodyAccelerationJerkMagnitude-mean
-FFTBodyBodyAccelerationJerkMagnitude-std
-FFTBodyBodyGyroMagnitude-mean
-FFTBodyBodyGyroMagnitude-std
-FFTBodyBodyGyroJerkMagnitude-mean
-FFTBodyBodyGyroJerkMagnitude-std
+The documentation also states that all numeric measurements are dimensionless, normalized and bounded in the range [-1, +1].
