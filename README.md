@@ -29,7 +29,7 @@ I found it quite challenging to interpret the data features in the UCI dataset. 
 However, there are a lot of issues with the UCI data:
 
 * There's very little documentation describing the __meaning__ of the labels (what does 'fBodyBodyGyroJerkMag-std()' represent?). I read the original paper (included here as https://github.com/sheldon-white/getdata-005-class-project/blob/master/SmartphoneBasedHumanActivityPrediction.pdf), but the descriptions of the data are pretty sketchy.
-* There's no explicity description of the units these numbers represent. The measurements of linear acceleration __probably__ represent fractions of 1 G (9.87 M/Sec^2^) but that's not called out explicitly. I could not find any description of the Jerk or Gyro measurements.
+* There's no explicit description of the units these numbers represent. All measurements are normalized in a range of [-1, 1] but some more description of the underlying physical measurements would have been nice.
 
 In the end I did some rudimentary cleanups to the feature names, but mostly left them intact.
 Also, there are other features like 'tBodyGyroJerkMean' and the '-meanFreq()' that are described as representing a mean value of some sort, but lacking a clear indication of how they were generated I decided to exclude them.

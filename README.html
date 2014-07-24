@@ -86,7 +86,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>However, there are a lot of issues with the UCI data:</p>
 <ul>
 <li>There’s very little documentation describing the <strong>meaning</strong> of the labels (what does ‘fBodyBodyGyroJerkMag-std()’ represent?). I read the original paper (included here as <a href="https://github.com/sheldon-white/getdata-005-class-project/blob/master/SmartphoneBasedHumanActivityPrediction.pdf">https://github.com/sheldon-white/getdata-005-class-project/blob/master/SmartphoneBasedHumanActivityPrediction.pdf</a>), but the descriptions of the data are pretty sketchy.</li>
-<li>There’s no explicity description of the units these numbers represent. The measurements of linear acceleration <strong>probably</strong> represent fractions of 1 G (9.87 M/Sec<sup>2</sup>) but that’s not called out explicitly. I could not find any description of the Jerk or Gyro measurements.</li>
+<li>There’s no explicit description of the units these numbers represent. All measurements are normalized in a range of [-1, 1] but some more description of the underlying physical measurements would have been nice.</li>
 </ul>
 <p>In the end I did some rudimentary cleanups to the feature names, but mostly left them intact. Also, there are other features like ‘tBodyGyroJerkMean’ and the ‘-meanFreq()’ that are described as representing a mean value of some sort, but lacking a clear indication of how they were generated I decided to exclude them.</p>
 
